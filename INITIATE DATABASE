@@ -1,0 +1,114 @@
+-- Creating the 'tbl_locations' table
+CREATE TABLE tbl_locations (
+    id INT PRIMARY KEY NOT NULL,
+    street_address VARCHAR(40),
+    postal_code VARCHAR(12),
+    city VARCHAR(30) NOT NULL,
+    state_province VARCHAR(25),
+    country CHAR(3) NOT NULL
+);
+
+-- Creating the 'tbl_countries' table
+CREATE TABLE tbl_countries (
+    id CHAR(3) PRIMARY KEY NOT NULL,
+    name VARCHAR(40) NOT NULL,
+    region INT NOT NULL
+);
+
+-- Creating the 'tbl_regions' table
+CREATE TABLE tbl_regions (
+	id INT PRIMARY KEY NOT NULL,
+	name VARCHAR(25) NOT NULL
+);
+
+-- Creating the 'tbl_departments' table
+CREATE TABLE tbl_departments (
+    id INT PRIMARY KEY NOT NULL,
+    name VARCHAR(30) NOT NULL,
+    location INT NOT NULL
+);
+
+-- Creating the 'tbl_employees' table
+CREATE TABLE tbl_employees (
+    id INT PRIMARY KEY NOT NULL,
+    first_name VARCHAR(25) NOT NULL,
+    last_name VARCHAR(25),
+	gender VARCHAR(10) NOT NULL,
+    email VARCHAR(25) NOT NULL UNIQUE,
+    phone VARCHAR(20),
+    hire_date DATE NOT NULL,
+	salary INT,
+	manager INT,
+	job VARCHAR(10) NOT NULL,
+    department INT NOT NULL
+);
+
+-- Creating the 'tbl_jobs' table
+CREATE TABLE tbl_jobs (
+    id VARCHAR(10) PRIMARY KEY NOT NULL,
+    title VARCHAR(35) NOT NULL,
+    min_salary INT,
+    max_salary INT
+);
+
+-- Creating the 'tbl_job_history' table
+CREATE TABLE tbl_job_histories (
+    employee INT NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE,
+    job VARCHAR(10) NOT NULL,
+    department INT NOT NULL,
+	PRIMARY KEY (employee, start_date)
+);
+
+-- Creating the 'tbl_accounts' table
+CREATE TABLE tbl_accounts (
+    id INT PRIMARY KEY NOT NULL,
+    username VARCHAR(26),
+    password VARCHAR(255) NOT NULL,
+    otp INT NOT NULL,
+    is_expired BIT NOT NULL,
+	is_used DATETIME NOT NULL
+);
+
+-- Creating the 'tbl_account_roles' table
+CREATE TABLE tbl_account_roles (
+    id INT PRIMARY KEY NOT NULL,
+    account INT NOT NULL,
+    role INT NOT NULL
+);
+
+-- Creating the 'tbl_roles' table
+CREATE TABLE tbl_roles (
+    id INT PRIMARY KEY NOT NULL,
+    name VARCHAR(50) NOT NULL
+);
+
+-- Creating the 'tbl_permissions' table
+CREATE TABLE tbl_permissions (
+    id INT PRIMARY KEY NOT NULL,
+    name VARCHAR(100) NOT NULL
+);
+
+-- Creating the 'tbl_role_permissions' table
+CREATE TABLE tbl_role_permissions (
+    id INT PRIMARY KEY NOT NULL,
+    role INT NOT NULL,
+    permission INT NOT NULL
+);
+
+--Creating the 'tbl_auction_goods' table
+CREATE TABLE tbl_auction_goods (
+    id INT PRIMARY KEY NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    open_bid INT CHECK (open_bid >= 0 AND open_bid <= 1000000000) NOT NULL
+);
+
+-- Creating the 'tbl_auction_histories' table
+CREATE TABLE tbl_auction_histories (
+	id INT PRIMARY KEY NOT NULL,
+	auction_goods INT NOT NULL,
+	close_bid INT NOT NULL,
+	buyer INT NOT NULL,
+	bid_date DATE NOT NULL,
+);
