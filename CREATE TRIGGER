@@ -1,0 +1,36 @@
+CREATE TRIGGER tr_insert_employee
+ON tbl_employees
+AFTER INSERT
+AS BEGIN
+    INSERT INTO tbl_job_histories (employee, start_date, job, department, status)
+    SELECT id, hire_date, job, department, 'Active'
+    FROM inserted;
+END;
+
+CREATE TRIGGER tr_update_employee_job
+ON tbl_employees
+AFTER UPDATE
+AS BEGIN
+   
+    DELETE FROM tbl_job_histories
+    WHERE employee IN (SELECT id FROM inserted)
+      AND end_date IS NULL;
+
+    INSERT INTO tbl_job_histories (employee, start_date, job, department, status)
+    SELECT id, hire_date, job, department, 'Handover'
+    FROM inserted;
+END;
+
+CREATE TRIGGER tr_delete_employee
+ON tbl_employees
+AFTER DELETE
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE jh
+    SET jh.end_date = GETDATE(), jh.status = 'Resign'
+    FROM tbl_job_histories jh
+    INNER JOIN deleted e ON jh.employee = e.id
+    WHERE jh.end_date IS NULL
+END
