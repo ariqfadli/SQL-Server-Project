@@ -1,0 +1,819 @@
+-- TBL_AUCTION_GOODS
+CREATE PROCEDURE sp_insert_auction_goods
+    @id INT,
+    @name VARCHAR(25),
+    @open_bid INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO tbl_auction_goods (id, name, open_bid)
+    VALUES (@id, @name, @open_bid);
+ 
+ IF @@ROWCOUNT > 0
+        PRINT 'Insert successful'
+    ELSE
+        PRINT 'Insert failed'
+END;
+
+CREATE PROCEDURE sp_update_auction_goods
+    @id INT,
+    @name VARCHAR(26),
+    @open_bid INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE tbl_auction_goods
+    SET name = @name, open_bid = @open_bid
+    WHERE id = @id;
+ 
+    IF @@ROWCOUNT > 0
+        PRINT 'Update successful'
+    ELSE
+        PRINT 'Update failed or no rows affected'
+END;
+
+CREATE PROCEDURE sp_delete_auction_goods
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DELETE FROM tbl_auction_goods
+    WHERE id = @id;
+    
+    IF @@ROWCOUNT > 0
+        PRINT 'Delete successful'
+    ELSE
+        PRINT 'Delete failed or no rows affected'
+END;
+
+-- TBL_AUCTION_HISTORIES
+CREATE PROCEDURE sp_insert_auction_history
+    @id INT,
+    @auction_goods INT,
+    @close_bid INT,
+    @buyer INT,
+    @bid_date DATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO tbl_auction_histories (id, auction_goods, close_bid, buyer, bid_date)
+    VALUES (@id, @auction_goods, @close_bid, @buyer, @bid_date);
+
+    IF @@ROWCOUNT > 0
+        PRINT 'Insert successful'
+    ELSE
+        PRINT 'Insert failed'
+END;
+
+CREATE PROCEDURE sp_update_auction_history
+    @id INT,
+    @auction_goods INT,
+    @close_bid INT,
+    @buyer INT,
+    @bid_date DATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE tbl_auction_histories
+    SET auction_goods = @auction_goods, 
+        close_bid = @close_bid, 
+        buyer = @buyer, 
+        bid_date = @bid_date
+    WHERE id = @id;
+    
+    IF @@ROWCOUNT > 0
+        PRINT 'Update successful'
+    ELSE
+        PRINT 'Update failed or no rows affected'
+END;
+
+CREATE PROCEDURE sp_delete_auction_history
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DELETE FROM tbl_auction_histories
+    WHERE id = @id;
+    
+    IF @@ROWCOUNT > 0
+        PRINT 'Delete successful'
+    ELSE
+        PRINT 'Delete failed or no rows affected'
+END;
+
+-- TBL_COUNTRIES
+CREATE PROCEDURE sp_insert_country
+    @id CHAR(3),
+    @name VARCHAR(40),
+    @region INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO tbl_countries (id, name, region)
+    VALUES (@id, @name, @region);
+
+    IF @@ROWCOUNT > 0
+        PRINT 'Insert successful'
+    ELSE
+        PRINT 'Insert failed'
+END;
+
+CREATE PROCEDURE sp_update_country
+    @id CHAR(3),
+    @name VARCHAR(40),
+    @region INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE tbl_countries
+    SET name = @name, region = @region
+    WHERE id = @id;
+    
+    IF @@ROWCOUNT > 0
+        PRINT 'Update successful'
+    ELSE
+        PRINT 'Update failed or no rows affected'
+END;
+
+CREATE PROCEDURE sp_delete_country
+    @id CHAR(3)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DELETE FROM tbl_countries
+    WHERE id = @id;
+    
+    IF @@ROWCOUNT > 0
+        PRINT 'Delete successful'
+    ELSE
+        PRINT 'Delete failed or no rows affected'
+END;
+
+-- TBL_DEPARTMENTS
+CREATE PROCEDURE sp_insert_department
+    @id INT,
+    @name VARCHAR(30),
+    @location INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO tbl_departments (id, name, location)
+    VALUES (@id, @name, @location);
+    
+    IF @@ROWCOUNT > 0
+        PRINT 'Insert successful'
+    ELSE
+        PRINT 'Insert failed'
+END;
+
+CREATE PROCEDURE sp_update_department
+    @id INT,
+    @name VARCHAR(30),
+    @location INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE tbl_departments
+    SET name = @name, location = @location
+    WHERE id = @id;
+    
+    IF @@ROWCOUNT > 0
+        PRINT 'Update successful'
+    ELSE
+        PRINT 'Update failed or no rows affected'
+END;
+
+CREATE PROCEDURE sp_delete_department
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DELETE FROM tbl_departments
+    WHERE id = @id;
+    
+    IF @@ROWCOUNT > 0
+        PRINT 'Delete successful'
+    ELSE
+        PRINT 'Delete failed or no rows affected'
+END;
+
+-- TBL_EMPLOYEES
+
+CREATE PROCEDURE sp_insert_employee
+    @id INT,
+    @first_name VARCHAR(25),
+    @last_name VARCHAR(25),
+    @gender VARCHAR(10),
+    @email VARCHAR(25),
+    @phone VARCHAR(20),
+    @hire_date DATE,
+    @salary INT,
+    @manager INT,
+    @job VARCHAR(10),
+    @department INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO tbl_employees (id, first_name, last_name, gender, email, phone, hire_date, salary, manager, job, department)
+    VALUES (@id, @first_name, @last_name, @gender, @email, @phone, @hire_date, @salary, @manager, @job, @department);
+    
+    IF @@ROWCOUNT > 0
+        PRINT 'Insert successful'
+    ELSE
+        PRINT 'Insert failed'
+END;
+
+CREATE PROCEDURE sp_update_employee
+    @id INT,
+    @first_name VARCHAR(25),
+    @last_name VARCHAR(25),
+    @gender VARCHAR(10),
+    @email VARCHAR(25),
+    @phone VARCHAR(20),
+    @hire_date DATE,
+    @salary INT,
+    @manager INT,
+    @job VARCHAR(10),
+    @department INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE tbl_employees
+    SET first_name = @first_name,
+        last_name = @last_name,
+        gender = @gender,
+        email = @email,
+        phone = @phone,
+        hire_date = @hire_date,
+        salary = @salary,
+        manager = @manager,
+        job = @job,
+        department = @department
+    WHERE id = @id;
+    
+    IF @@ROWCOUNT > 0
+        PRINT 'Update successful'
+    ELSE
+        PRINT 'Update failed or no rows affected'
+END;
+
+CREATE PROCEDURE sp_delete_employee
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DELETE FROM tbl_employees
+    WHERE id = @id;
+    
+    IF @@ROWCOUNT > 0
+        PRINT 'Delete successful'
+    ELSE
+        PRINT 'Delete failed or no rows affected'
+END;
+
+-- TBL_JOBS
+CREATE PROCEDURE sp_insert_job
+    @id VARCHAR(10),
+    @title VARCHAR(35),
+    @min_salary INT = NULL,
+    @max_salary INT = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO tbl_jobs (id, title, min_salary, max_salary)
+    VALUES (@id, @title, @min_salary, @max_salary);
+    
+    IF @@ROWCOUNT > 0
+        PRINT 'Insert successful'
+    ELSE
+        PRINT 'Insert failed'
+END;
+
+CREATE PROCEDURE sp_update_job
+    @id VARCHAR(10),
+    @title VARCHAR(35),
+    @min_salary INT = NULL,
+    @max_salary INT = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE tbl_jobs
+    SET title = @title,
+        min_salary = @min_salary,
+        max_salary = @max_salary
+    WHERE id = @id;
+    
+    IF @@ROWCOUNT > 0
+        PRINT 'Update successful'
+    ELSE
+        PRINT 'Update failed or no rows affected'
+END;
+
+
+CREATE PROCEDURE sp_delete_job
+    @id VARCHAR(10)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DELETE FROM tbl_jobs
+    WHERE id = @id;
+    
+    IF @@ROWCOUNT > 0
+        PRINT 'Delete successful'
+    ELSE
+        PRINT 'Delete failed or no rows affected'
+END;
+
+-- TBL_LOCATIONS
+CREATE PROCEDURE sp_insert_location
+    @id INT,
+    @street_address VARCHAR(40),
+    @postal_code VARCHAR(12),
+    @city VARCHAR(25),
+    @state_province VARCHAR(25),
+    @country CHAR(3)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO tbl_locations (id, street_address, postal_code, city, state_province, country)
+    VALUES (@id, @street_address, @postal_code, @city, @state_province, @country);
+    
+    IF @@ROWCOUNT > 0
+        PRINT 'Insert successful'
+    ELSE
+        PRINT 'Insert failed'
+END;
+
+CREATE PROCEDURE sp_update_location
+    @id INT,
+    @street_address VARCHAR(40),
+    @postal_code VARCHAR(12),
+    @city VARCHAR(25),
+    @state_province VARCHAR(25),
+    @country CHAR(3)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE tbl_locations
+    SET street_address = @street_address,
+        postal_code = @postal_code,
+        city = @city,
+        state_province = @state_province,
+        country = @country
+    WHERE id = @id;
+    
+    IF @@ROWCOUNT > 0
+        PRINT 'Update successful'
+    ELSE
+        PRINT 'Update failed or no rows affected'
+END;
+
+CREATE PROCEDURE sp_delete_location
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DELETE FROM tbl_locations
+    WHERE id = @id;
+    
+    IF @@ROWCOUNT > 0
+        PRINT 'Delete successful'
+    ELSE
+        PRINT 'Delete failed or no rows affected'
+END;
+
+-- TBL_REGIONS
+CREATE PROCEDURE sp_insert_region
+    @id INT,
+    @name VARCHAR(25)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO tbl_regions (id, name)
+    VALUES (@id, @name);
+    
+    IF @@ROWCOUNT > 0
+        PRINT 'Insert successful'
+    ELSE
+        PRINT 'Insert failed'
+END;
+
+CREATE PROCEDURE sp_update_region
+    @id INT,
+    @name VARCHAR(25)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE tbl_regions
+    SET name = @name
+    WHERE id = @id;
+    
+    IF @@ROWCOUNT > 0
+        PRINT 'Update successful'
+    ELSE
+        PRINT 'Update failed or no rows affected'
+END;
+
+CREATE PROCEDURE sp_delete_region
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DELETE FROM tbl_regions
+    WHERE id = @id;
+    
+    IF @@ROWCOUNT > 0
+        PRINT 'Delete successful'
+    ELSE
+        PRINT 'Delete failed or no rows affected'
+END;
+
+-- TBL_PERMISSIONS
+CREATE PROCEDURE sp_insert_permission
+    @id INT,
+    @name VARCHAR(100)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO tbl_permissions (id, name)
+    VALUES (@id, @name);
+    
+    IF @@ROWCOUNT > 0
+        PRINT 'Insert successful'
+    ELSE
+        PRINT 'Insert failed'
+END;
+
+CREATE PROCEDURE sp_update_permission
+    @id INT,
+    @name VARCHAR(100)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Update statement
+    UPDATE tbl_permissions
+    SET name = @name
+    WHERE id = @id;
+    
+    -- Check for success and return appropriate message
+    IF @@ROWCOUNT > 0
+        PRINT 'Update successful'
+    ELSE
+        PRINT 'Update failed or no rows affected'
+END;
+
+CREATE PROCEDURE sp_delete_permission
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Delete statement
+    DELETE FROM tbl_permissions
+    WHERE id = @id;
+    
+    -- Check for success and return appropriate message
+    IF @@ROWCOUNT > 0
+        PRINT 'Delete successful'
+    ELSE
+        PRINT 'Delete failed or no rows affected'
+END;
+
+-- TBL_ROLES
+CREATE PROCEDURE sp_insert_role
+    @id INT,
+    @name VARCHAR(60)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO tbl_roles (id, name)
+    VALUES (@id, @name);
+   
+    IF @@ROWCOUNT > 0
+        PRINT 'Insert successful'
+    ELSE
+        PRINT 'Insert failed'
+END;
+
+CREATE PROCEDURE sp_update_role
+    @id INT,
+    @name VARCHAR(60)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE tbl_roles
+    SET name = @name
+    WHERE id = @id;
+    
+
+    IF @@ROWCOUNT > 0
+        PRINT 'Update successful'
+    ELSE
+        PRINT 'Update failed or no rows affected'
+END;
+
+CREATE PROCEDURE sp_delete_role
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DELETE FROM tbl_roles
+    WHERE id = @id;
+    
+    IF @@ROWCOUNT > 0
+        PRINT 'Delete successful'
+    ELSE
+        PRINT 'Delete failed or no rows affected'
+END;
+
+CREATE PROCEDURE sp_insert_account_role
+    @id INT,
+    @account INT,
+    @role INT
+AS
+BEGIN
+    INSERT INTO tbl_account_roles (id, account, role)
+    VALUES (@id, @account, @role);
+END;
+GO
+
+-- Stored Procedure for sp_insert_account
+CREATE PROCEDURE sp_insert_account
+    @id INT,
+    @username VARCHAR(255),
+    @password VARCHAR(255),
+    @otp INT,
+    @is_expired BIT,
+    @is_used DATETIME
+AS
+BEGIN
+	SET NOCOUNT ON;
+    INSERT INTO tbl_accounts (id, username, password, otp, is_expired, is_used)
+    VALUES (@id, @username, @password, @otp, @is_expired, @is_used);
+	IF @@ROWCOUNT > 0
+        PRINT 'Insert successful'
+    ELSE
+        PRINT 'Insert failed'
+END;
+GO
+
+-- Stored Procedure for sp_insert_role_permission
+CREATE PROCEDURE sp_insert_role_permission
+    @id INT,
+    @role INT,
+    @permission INT
+AS
+BEGIN
+    INSERT INTO tbl_role_permissions (id, role, permission)
+    VALUES (@id, @role, @permission);
+END;
+GO
+
+-- Update Stored Procedure for sp_update_account_role
+CREATE PROCEDURE sp_update_account_role
+    @id INT,
+    @account INT,
+    @role INT
+AS
+BEGIN
+    UPDATE tbl_account_roles
+    SET account = @account, role = @role
+    WHERE id = @id;
+END;
+GO
+
+-- Delete Stored Procedure for sp_delete_account_role
+CREATE PROCEDURE sp_delete_account_role
+    @id INT
+AS
+BEGIN
+    DELETE FROM tbl_account_roles WHERE id = @id;
+END;
+GO
+
+-- Update Stored Procedure for sp_update_account
+CREATE PROCEDURE sp_update_account
+    @id INT,
+    @username VARCHAR(255),
+    @password VARCHAR(255),
+    @otp INT,
+    @is_expired BIT,
+    @is_used DATETIME
+AS
+BEGIN
+    UPDATE tbl_accounts
+    SET username = @username, password = @password, 
+        otp = @otp, is_expired = @is_expired, is_used = @is_used
+    WHERE id = @id;
+END;
+GO
+
+-- Delete Stored Procedure for sp_delete_account
+CREATE PROCEDURE sp_delete_account
+    @id INT
+AS
+BEGIN
+    DELETE FROM tbl_accounts WHERE id = @id;
+END;
+GO
+
+
+-- Update Stored Procedure for sp_update_role_permission
+CREATE PROCEDURE sp_update_role_permission
+    @id INT,
+    @role INT,
+    @permission INT
+AS
+BEGIN
+    UPDATE tbl_role_permissions
+    SET role = @role, permission = @permission
+    WHERE id = @id;
+END;
+GO
+
+-- Delete Stored Procedure for sp_delete_role_permission
+CREATE PROCEDURE sp_delete_role_permission
+    @id INT
+AS
+BEGIN
+    DELETE FROM tbl_role_permissions WHERE id = @id;
+END;
+GO
+
+--INSERT, EDIT, AND DELETE VALUE USING EXEC-- 
+
+--REGION TABLE--
+EXEC sp_insert_region @id = 11, @name = Asia;
+EXEC sp_insert_region @id = 22, @name = Australia;
+EXEC sp_insert_region @id = 33, @name = Europe;
+EXEC sp_insert_region @id = 44, @name = America;
+EXEC sp_insert_region @id = 55, @name = Africa;
+
+EXEC sp_update_region @id = 44, @name = 'North America';
+
+EXEC sp_delete_region @id = 44;
+
+
+--COUNTRY TABLE--
+EXEC sp_insert_country @id = 'IND', @name = 'Indonesia', @region = 11;
+EXEC sp_insert_country @id = 'AUS', @name = 'Australia', @region = 22;
+EXEC sp_insert_country @id = 'FRA', @name = 'France', @region = 33;
+EXEC sp_insert_country @id = 'EGY', @name = 'Egypt', @region = 55;
+
+EXEC sp_update_country @id = AUS, @name = Australia, @region = 22;
+
+EXEC sp_delete_country @id = AUS;
+
+--LOCATION TABLE--
+EXEC sp_insert_location @id = 1, @street_address = '123 Main St', @postal_code = '12345', 
+@city = 'Jakarta', @state_province = NULL, @country = 'IND';
+EXEC sp_insert_location @id = 2, @street_address = '456 Side St', @postal_code = '23456',
+@city = 'Sydney', @state_province = NULL, @country = 'AUS';
+EXEC sp_insert_location @id = 3, @street_address = '789 Front St', @postal_code = '34567',
+@city = 'Paris', @state_province = NULL, @country = 'FRA';
+EXEC sp_insert_location @id = 4, @street_address = '101 Back St', @postal_code = '45678',
+@city = 'New York', @state_province='NY',@country='USA';
+EXEC sp_insert_location @id=5,@street_address='102 Down St',@postal_code='56789',
+@city='Cairo',@state_province=NULL,@country='EGY';
+
+EXEC sp_update_location @id = 5, @street_address = '12 Down St', @postal_code = '12345', @city = 'Kairo', 
+@state_province = NULL, @country = 'EGY';
+
+EXEC sp_delete_location @id = 4;
+
+--DEPARTMENT TABLE--
+EXEC sp_insert_department @id = 1, @name = 'IT', @location = 1;
+EXEC sp_insert_department @id = 2, @name = 'HR', @location = 2;
+EXEC sp_insert_department @id = 3, @name = 'Finance', @location = 3;
+EXEC sp_insert_department @id = 4, @name = 'Sales', @location = 4;
+EXEC sp_insert_department @id = 5, @name = 'Marketing', @location = 5;
+
+EXEC sp_update_department @id = 1, @name = 'Software Developer', @location = 1;
+
+EXEC sp_delete_department @id = 4;
+
+--JOB TABLE--
+EXEC sp_insert_job @id='IT_MGR',@title='IT Manager',@min_salary=70000,@max_salary=150000;
+EXEC sp_insert_job @id='HR_REP',@title='HR Representative',@min_salary=50000,@max_salary=90000;
+EXEC sp_insert_job @id='FIN_ANALYST',@title='Finance Analyst',@min_salary=60000,@max_salary=110000;
+EXEC sp_insert_job @id='SA_MAN',@title='Sales Manager',@min_salary=80000,@max_salary=160000;
+EXEC sp_insert_job @id='MK_REP',@title='Marketing Representative',@min_salary=45000,@max_salary=85000;
+
+EXEC sp_update_job @id='IT_MGR', @title = 'Product Management', @min_salary=50000, @max_salary = 100000;
+
+EXEC sp_delete_job @id='MK_REP';
+
+--EMPLOYEE TABLE--
+EXEC sp_insert_employee @id = 118633, @first_name = 'John', @last_name = 'Doe', 
+@gender='Male',@email='john.doe@example.com',@phone='1234567890',
+@hire_date='2022-01-01',@salary=80000,@manager=NULL,@job='IT_MGR',
+@department=1;
+EXEC sp_insert_employee @id = 223432, @first_name = 'Jane', @last_name = 'Smith',
+@gender='Female',@email='jane.smith@example.com',@phone='2345678901',
+@hire_date='2022-02-01',@salary=55000,@manager=NULL,@job='HR_REP',
+@department=2;
+EXEC sp_insert_employee @id = 334333, @first_name = 'Alice', @last_name = 'Brown',
+@gender='Female',@email='alice.brown@example.com',@phone='3456789012',
+@hire_date='2022-03-01',@salary=65000,@manager=NULL,@job='FIN_ANALYST',
+@department=3;
+EXEC sp_insert_employee @id = 234323, @first_name = 'Bob', @last_name = 'Davis',
+@gender='Male',@email='bob.davis@example.com',@phone='4567890123',
+@hire_date='2022-04-01',@salary=90000,@manager=NULL,@job='SA_MAN',
+@department=3;
+
+EXEC sp_update_employee @id = 234323, @first_name = 'Bobby', @last_name = 'Girsang', @gender = 'Male',
+@email = 'bobbygirsang@gmail.com', @phone = '08824548098', @hire_date = '2022-04-02', @salary = 100000,
+@manager = NULL, @job='SA_MAN', @department =3;
+
+EXEC sp_delete_employee @id = 334333;
+
+--ROLES TABLE--
+EXEC sp_insert_role @id = 123, @name = 'Super Admin';
+EXEC sp_insert_role @id = 124, @name = 'Admin';
+EXEC sp_insert_role @id = 125, @name = 'Manager';
+EXEC sp_insert_role @id = 126, @name = 'Employee';
+EXEC sp_insert_role @id = 127, @name = 'Office Boy';
+
+EXEC sp_update_role @id = 126, @name = 'Employees';
+
+EXEC sp_delete_role @id = 127;
+
+--PERMISSION TABLE--
+EXEC sp_insert_permission @id = 12, @name = 'Add Employee';
+EXEC sp_insert_permission @id = 13, @name = 'Edit Employee';
+EXEC sp_insert_permission @id = 14, @name = 'Delete Employee';
+EXEC sp_insert_permission @id = 15, @name = 'Detail Employee';
+
+
+EXEC sp_delete_permission @id = 15;
+
+--ROLE PERMISSION TABLE--
+EXEC sp_insert_role_permission @id = 1, @role = 123, @permission = 12;
+EXEC sp_insert_role_permission @id = 2, @role = 123, @permission = 13;
+EXEC sp_insert_role_permission @id = 3, @role = 123, @permission = 14;
+
+EXEC sp_update_role_permission @id = 2, @role = 124, @permission = 12;
+
+EXEC sp_delete_role_permission @id = 3;
+
+--AUCTION GOODS TABLE--
+EXEC sp_insert_auction_goods @id = 1, @name = 'Antique Vase', @open_bid = 100000;
+EXEC sp_insert_auction_goods @id =2,@name = 'Unique Vase', @open_bid = 1000000;
+
+EXEC sp_update_auction_goods @id = 2, @name= 'Legendary Vase', @open_bid = 1500000;
+EXEC sp_delete_auction_goods @id =1;
+
+--ACCOUNT TABLES--
+EXEC sp_insert_account @id = 118633,@username = 'mrgamer', @password = 'Ariq123', @otp = 32444, @is_expired = 0,
+@is_used = '2022-12-12T08:30:00';
+EXEC sp_insert_account @id =  223432,@username = 'mrgamer', @password = 'Ariq123', @otp = 32444, @is_expired = 0,
+@is_used = '2022-12-12T08:30:00';
+
+EXEC sp_update_account @id = 223432, @username = 'unworthyknight', @password = 'Knight123', @otp = 32444, @is_expired = 0, 
+@is_used = '2022-12-12T08:30:00';
+
+EXEC sp_delete_account @id = 118633;
+
+--ACCOUNT ROLES TABLE--
+EXEC sp_insert_account_role @id = 12345, @account = 223432, @role = 126;
+EXEC sp_insert_account_role @id = 12346, @account = 223432, @role = 125;
+
+EXEC sp_update_account_role @id = 12345, @account = 223432, @role = 124;
+
+EXEC sp_delete_account_role @id = 12345;
+
+--AUCTION HISTORIES TABLE--
+EXEC sp_insert_auction_history @id = 212, @auction_goods = 2, @close_bid = 200000, @buyer = 223432, @bid_date = '2022-12-12';
+
+EXEC sp_update_auction_history @id = 212, @auction_goods = 2, @close_bid = 3000000, @buyer = 223432, @bid_date = '2022-12-12';
+
+EXEC sp_delete_auction_history @id = 212;
