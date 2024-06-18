@@ -1,1 +1,32 @@
+CREATE VIEW Employees AS
+SELECT
+    tbl_employees.id,
+    CONCAT(tbl_employees.first_name, ' ', tbl_employees.last_name) AS full_name,
+    tbl_employees.gender,
+    tbl_employees.email,
+    tbl_employees.phone,
+    tbl_employees.hire_date,
+    tbl_employees.salary,
+    tbl_employees.manager,
+    tbl_jobs.title,
+    tbl_departments.name
+FROM
+    tbl_employees
+    LEFT JOIN tbl_jobs ON tbl_employees.job = tbl_jobs.id
+    LEFT JOIN tbl_departments ON tbl_employees.department = tbl_departments.id;
+GO
+
+CREATE VIEW vw_auction_history AS
+SELECT 
+    ah.id,
+    ah.auction_goods,
+    ah.close_bid,
+    CONCAT(e.first_name, ' ', e.last_name) AS buyer,
+    ah.bid_date
+FROM 
+    tbl_auction_histories ah
+    INNER JOIN tbl_auction_goods ag ON ah.auction_goods = ag.id
+    INNER JOIN tbl_employees e ON ah.buyer = e.id;
+GO
+
 
