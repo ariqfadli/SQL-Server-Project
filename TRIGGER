@@ -6,6 +6,7 @@ AS BEGIN
     SELECT id, hire_date, job, department, 'Active'
     FROM inserted;
 END;
+GO
 
 CREATE TRIGGER tr_update_employee_job
 ON tbl_employees
@@ -20,6 +21,7 @@ AS BEGIN
     SELECT id, hire_date, job, department, 'Handover'
     FROM inserted;
 END;
+GO
 
 CREATE TRIGGER tr_delete_employee
 ON tbl_employees
@@ -33,4 +35,16 @@ BEGIN
     FROM tbl_job_histories jh
     INNER JOIN deleted e ON jh.employee = e.id
     WHERE jh.end_date IS NULL
-END
+END;
+GO
+
+CREATE TRIGGER trg_auction_sold
+ON tbl_auction_histories
+AFTER INSERT
+AS
+BEGIN
+    UPDATE tbl_auction_goods
+    SET status = 'SOLD'
+    FROM tbl_auction_goods AG
+    INNER JOIN inserted I ON AG.id = I.auction_goods;
+END;
