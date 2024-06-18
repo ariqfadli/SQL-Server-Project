@@ -113,6 +113,12 @@ CREATE TABLE tbl_auction_histories (
 	bid_date DATE NOT NULL,
 );
 
+ALTER TABLE  tbl_auction_goods
+ADD status VARCHAR(10) DEFAULT 'AVAILABLE';
+
+ALTER TABLE tbl_auction_histories
+ADD CONSTRAINT DF_tbl_auction_histories_bid_date DEFAULT GETDATE() FOR bid_date;
+
 ALTER TABLE tbl_countries 
 ADD CONSTRAINT FK_tbl_countries_region FOREIGN KEY
 (region) REFERENCES tbl_regions(id);
