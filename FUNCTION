@@ -56,3 +56,78 @@ BEGIN
     RETURN @Result;
 END;
 GO
+
+CREATE FUNCTION [dbo].[func_salary] (@JobId VARCHAR(10), @Salary INT) 
+RETURNS BIT 
+AS
+BEGIN
+    DECLARE @Result BIT = 2; -- Default to false
+    DECLARE @MinSalary INT, @MaxSalary INT;
+
+    SELECT @MinSalary = min_salary, @MaxSalary = max_salary 
+    FROM tbl_jobs 
+    WHERE id = @JobId;
+
+    IF @Salary IS NOT NULL AND
+       @Salary BETWEEN @MinSalary AND @MaxSalary
+    SET @Result = 1; -- Set to true if salary is within the range
+
+    RETURN @Result;
+END;
+GO
+
+
+--CHECK FUNCTION--
+
+--CHECK EMAIL--
+SELECT id, email,
+       CASE dbo.func_email_format(email)
+           WHEN 1 THEN 'Valid format'
+           WHEN 2 THEN 'Invalid format'
+       END as EmailStatus
+FROM tbl_employees;
+GO
+
+--CHECK PASSWORD POLICY--
+SELECT id, password,
+       CASE dbo.func_password_policy(password)
+           WHEN 1 THEN 'Meets policy'
+           WHEN 2 THEN 'Does not meet policy'
+       END as PasswordPolicyStatus
+FROM tbl_accounts;
+GO
+
+--CHECK GENDER--
+SELECT id, gender,
+       CASE dbo.func_gender(gender)
+           WHEN 1 THEN 'Valid gender'
+           WHEN 2 THEN 'Invalid gender'
+       END as GenderStatus
+FROM tbl_employees;
+GO
+
+--CHECK PHONE--
+SELECT id, phone,
+       CASE dbo.func_phone_number(phone)
+           WHEN 1 THEN 'Valid phone number'
+           WHEN 2 THEN 'Invalid phone number'
+       END as PhoneNumberStatus
+FROM tbl_employees;
+GO
+
+--CHECK PASSWORD MATCH--
+DECLARE @NewPassword VARCHAR(255) = 'NewPass123!';
+DECLARE @ConfirmPassword VARCHAR(255) = 'NewPass123!';
+
+SELECT dbo.func_password_match(@NewPassword, @ConfirmPassword) AS PasswordMatchStatus;
+GO
+
+--CHECK SALARY--
+SELECT e.id, e.first_name, e.last_name, j.title,
+       CASE dbo.func_salary(e.job, e.salary)
+           WHEN 1 THEN 'Within range'
+           WHEN 2 THEN 'Out of range'
+       END as SalaryStatus
+FROM tbl_employees e
+JOIN tbl_jobs j ON e.job = j.id;
+GO
